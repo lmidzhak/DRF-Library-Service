@@ -6,6 +6,7 @@ from borrowings.serializers import (
     BorrowingSerializer,
     BorrowingListSerializer,
     BorrowingDetailSerializer,
+    BorrowingCreateSerializer,
 )
 
 
@@ -24,7 +25,9 @@ class BorrowingViewSet(
             return BorrowingListSerializer
         elif self.action == "retrieve":
             return BorrowingDetailSerializer
+        elif self.action == "create":
+            return BorrowingCreateSerializer
         return BorrowingSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(borrower=self.request.user)
