@@ -21,7 +21,7 @@ class BorrowingSerializer(serializers.ModelSerializer):
 
 class BorrowingListSerializer(serializers.ModelSerializer):
     borrowed_book = serializers.StringRelatedField(read_only=True)
-    borrower = serializers.CharField(source="user.email", read_only=True)
+    borrower = serializers.SlugRelatedField(slug_field="email", read_only=True)
 
     class Meta:
         model = Borrowing
@@ -31,6 +31,10 @@ class BorrowingListSerializer(serializers.ModelSerializer):
             "borrower",
             "expected_return_date"
         )
+
+    def validate(self, data):
+        if self.data.user.id is None:
+            raise serializers.ValidationError("To see this page, you must be logged in.")
 
 
 class BorrowingDetailSerializer(serializers.ModelSerializer):
