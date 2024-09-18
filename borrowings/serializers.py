@@ -38,10 +38,10 @@ class BorrowingListSerializer(serializers.ModelSerializer):
 
 
 class BorrowingDetailSerializer(serializers.ModelSerializer):
-    borrowed_book_title = serializers.CharField(source="book.title", read_only=False)
-    borrowed_book_author = serializers.CharField(source="book.author", read_only=False)
-    borrowed_book_cover = serializers.CharField(source="book.cover", read_only=False)
-    borrowed_book_daily_fee = serializers.CharField(source="book.daily_fee", read_only=False)
+    borrowed_book_title = serializers.CharField(source="borrowed_book.title", read_only=False)
+    borrowed_book_author = serializers.CharField(source="borrowed_book.author", read_only=False)
+    borrowed_book_cover = serializers.CharField(source="borrowed_book.cover", read_only=False)
+    borrowed_book_daily_fee = serializers.CharField(source="borrowed_book.daily_fee", read_only=False)
     borrower = serializers.SlugRelatedField(slug_field="email", read_only=True)
 
     class Meta:
